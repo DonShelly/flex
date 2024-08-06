@@ -90,3 +90,17 @@ def post_filtered_outages(site_id, outages):
         print("Successfully posted filtered outages.")
     except requests.exceptions.RequestException as e:
         print(f"Failed to post outages for {site_id}: {e}")
+
+
+def main():
+    """
+    Main function orchestrating the data retrieval, filtering, and posting process.
+    """
+    outages = fetch_all_outages()
+    site_details = fetch_site_details("norwich-pear-tree")
+    filtered_outages = filter_relevant_outages(outages, site_details)
+    post_filtered_outages("norwich-pear-tree", filtered_outages)
+
+
+if __name__ == "__main__":
+    main()
