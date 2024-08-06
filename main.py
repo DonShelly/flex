@@ -23,3 +23,22 @@ def fetch_all_outages():
     except requests.exceptions.RequestException as e:
         print(f"Failed to retrieve outages: {e}")
         return []
+
+
+def fetch_site_details(site_id):
+    """
+    Retrieves information about a specific site, including device details.
+
+    Args:
+        site_id (str): The ID of the site to retrieve details for.
+
+    Returns:
+        dict: A dictionary containing site and device information.
+    """
+    try:
+        response = requests.get(f"{API_BASE_URL}/site-info/{site_id}", headers=api_headers)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to retrieve site information for {site_id}: {e}")
+        return {}
