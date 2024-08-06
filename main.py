@@ -1,10 +1,15 @@
-import requests
+import os
 from datetime import datetime
 
-API_KEY = "your_default_api_key"
+import requests
+
+# Constants
+API_KEY = os.getenv("KRAKENFLEX_API_KEY", "EltgJ5G8m44IzwE6UN2Y4B4NjPW77Zk6FJK3lL23")
 API_BASE_URL = "https://api.krakenflex.systems/interview-tests-mock-api/v1"
+TARGET_SITE = "norwich-pear-tree"
 MIN_DATE = "2022-01-01T00:00:00.000Z"
 
+# Headers for API requests
 api_headers = {
     "x-api-key": API_KEY,
     "Content-Type": "application/json"
@@ -97,9 +102,9 @@ def main():
     Main function orchestrating the data retrieval, filtering, and posting process.
     """
     outages = fetch_all_outages()
-    site_details = fetch_site_details("norwich-pear-tree")
+    site_details = fetch_site_details(TARGET_SITE)
     filtered_outages = filter_relevant_outages(outages, site_details)
-    post_filtered_outages("norwich-pear-tree", filtered_outages)
+    post_filtered_outages(TARGET_SITE, filtered_outages)
 
 
 if __name__ == "__main__":
