@@ -74,3 +74,19 @@ def filter_relevant_outages(all_outages, site_info):
             })
 
     return relevant_outages
+
+
+def post_filtered_outages(site_id, outages):
+    """
+    Sends the filtered outages to the specified site endpoint.
+
+    Args:
+        site_id (str): The ID of the site to post outages for.
+        outages (list): The list of filtered outages to be posted.
+    """
+    try:
+        response = requests.post(f"{API_BASE_URL}/site-outages/{site_id}", headers=api_headers, json=outages)
+        response.raise_for_status()
+        print("Successfully posted filtered outages.")
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to post outages for {site_id}: {e}")
